@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="span9">		
+    <div class="well well-small">
+    <h4>Best Deal Products <small class="pull-right">Plenty Products Under 10 €</small></h4>
+        <div class="row-fluid">
+            <div id="featured" class="carousel slide">
+                
+                <div class="carousel-inner">
+                    <!-- section of 4 products rotating -->    
+                      
+                    {% for group in books.best_deals|batch:"4" %}
+                    <div class="item">
+                        <ul class="thumbnails">  
+
+                            {% for book in group %}
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <i class="tag"></i>
+                                    <a href="{% url "books:book_detail" book.id %}"><img src="{{book.image}}" alt=""></a>
+                                    <div class="caption">
+                                        <h5>{{book.title|slice:"20"}}{% if book.title|length > 20 %}...{%endif%}</h5>
+                                        <h4><a class="btn" href="{% url "books:book_detail" book.id %}">VIEW</a> <span class="pull-right">{{book.price}} €</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                    {% endfor %}
+                    <!--End of group of 4 product section-->
+                </div>
+                
+                <a class="left carousel-control" href="#featured" data-slide="prev">‹</a>
+                <a class="right carousel-control" href="#featured" data-slide="next">›</a>
+            </div>
+        </div>
+    </div>
+
+    <h4>Latest Products </h4>
+    <ul class="thumbnails">
+        <!--Section of lastest products-->
+        {% for book in books.latest_books %}
+        <li class="span3">
+          <div class="thumbnail">
+            <a  href="{% url "books:book_detail" book.id %}"><img src="{{book.image}}" alt="{{book.image}}" style="width:200px; height:300px; object-fit:contain"/></a>
+            <div class="caption">
+              <h5>{{book.title|slice:"30"}}{% if book.title|length > 30 %}...{%endif%}</h5>
+              <p> 
+                {{book.description|slice:"130"}}...
+              </p>
+             
+              <h4 style="text-align:center"><a class="btn" href="{% url "books:book_detail" book.id %}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{book.price}} €</a></h4>
+            </div>
+          </div>
+        </li>
+        {%endfor%}
+
+    </ul>	
+</div>
+
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="span9">
+    <ul class="breadcrumb">
+		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
+		<li class="active">Books</li>
+    </ul>
+	<h3> Books <small class="pull-right"> <!--40 products are available--> </small></h3>	
+	<hr class="soft"/>
+	<p>
+		Providing the best books for you!
+	</p>
+	<hr class="soft"/>
+	<form class="form-horizontal span6">
+		<div class="control-group">
+		  <label class="control-label alignL">Sort By </label>
+			<select>
+              <option>Priduct name A - Z</option>
+              <option>Priduct name Z - A</option>
+              <option>Priduct Stoke</option>
+              <option>Price Lowest first</option>
+            </select>
+		</div>
+	</form>
+	  
+	<div id="myTab" class="pull-right">
+	<a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
+	<a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
+	</div>
+	<br class="clr"/>
+	<div class="tab-content">
+		<!-- List view section -->
+		<div class="tab-pane" id="listView">
+
+			<!-- Book item section -->
+			{% for book in books %}
+			<div class="row">	  
+				<div class="span2">
+					<img src="{{book.image}}" alt="{{book.image}}" style="width:200px; height:300px; object-fit:contain"/>
+				</div>
+				<div class="span4">
+					<h3>{{book.status}}</h3>				
+					<hr class="soft"/>
+					<h5>{{book.title|slice:"30"}}{% if book.title|length > 30 %}...{%endif%}</h5>
+					<p>
+						{{book.description|slice:"130"}}...
+					</p>
+					<a class="btn btn-small pull-right" href="{% url "books:book_detail" book.id %}">View Details</a>
+					<br class="clr"/>
+				</div>
+				<div class="span3 alignR">
+				<form class="form-horizontal qtyFrm">
+				<h3>{{book.price}} €</h3>
+				<!--
+				<label class="checkbox">
+					<input type="checkbox">  Adds product to compair
+				</label><br/>
+				-->
+				<a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+				<a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+				
+					</form>
+				</div>
+			</div>
+			<hr class="soft"/>
+			{% endfor %}
+
+		</div>
+		<!-- Block view section -->
+		<div class="tab-pane  active" id="blockView">
+			<ul class="thumbnails">
+
+				{% for book in books %}
+				<li class="span3">
+				<div class="thumbnail">
+					<a href="{% url "books:book_detail" book.id %}"><img src="{{book.image}}" alt="{{book.image}}"style="width:200px; height:300px; object-fit:contain"/></a>
+					<div class="caption">
+					<h5>{{book.title|slice:"30"}}{% if book.title|length > 30 %}...{%endif%}</h5>
+					<p> 
+						{{book.description|slice:"130"}}... 
+					</p>
+					<h4 style="text-align:center"><a class="btn" href="{% url "books:book_detail" book.id %}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{book.price}} €</a></h4>
+					</div>
+				</div>
+				</li>
+				{% endfor %}
+
+			</ul>
+			<hr class="soft"/>
+		</div>
+	</div>
+
+	<center>{% include "includes/pagination.html" %}</center>
+
+			<br class="clr"/>
+	</div>
+</div>
+
+{% endblock %}

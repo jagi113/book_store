@@ -1,0 +1,20 @@
+{% if books.has_other_pages %}
+<div class="pagination">
+    <ul>
+        {% if books.has_previous %}
+        <li><a href="?page={{books.previous_page_number}}" data-page="{{books.previous_page_number}}">&lsaquo;</a></li>
+        {% endif %}
+
+        {% for page in custom_range %}
+            {% if page == books.number %}
+            <li><a href="?page={{page}}" style="font-weight:bold;" data-page="{{page}}">{{page}}</a></li>
+            {% else %}
+            <li><a href="?page={{page}}" style="font-weight:normal;" data-page="{{page}}">{{page}}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if books.has_next %}
+        <li><a href="?page={{books.next_page_number}}" data-page="{{books.next_page_number}}">&rsaquo;</a></li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}
