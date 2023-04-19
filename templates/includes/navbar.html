@@ -8,7 +8,7 @@
       <div class="navbar-inner">
         <a class="brand" href="{% url 'books:index' %}"><img src="{% static 'themes/images/logo.png'%}" alt="Bootsshop"/></a>
             <form class="form-inline navbar-search" method="get" action="{% url 'books:book_list' %}" >
-              <input id="srchFld" class="srchTxt" type="text" name="search_query" value="{{search_query}}"/>
+              <input id="srchField" class="srchTxt" type="text" name="search_query" value="{{search_query}}"/>
               <!--
               <select class="srchTxt">
                 <option>All</option>
@@ -22,33 +22,41 @@
               <button type="submit" id="submitButton" class="btn btn-primary">Search</button>
         </form>
         <ul id="topMenu" class="nav pull-right">
-         <li class=""><a href="">Specials Offer</a></li>
-         <li class=""><a href="">Delivery</a></li>
-         <li class=""><a href="">Contact</a></li>
+         <li class=""><a href="">Najlepšie ponuky</a></li>
+         <li class=""><a href="">Doprava</a></li>
+         <li class=""><a href="">Kontakt</a></li>
          <li class="">
-         <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
+         <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Prihlásiť sa</span></a>
         <div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3>Login Block</h3>
+                <h3>Prihlásenie</h3>
               </div>
               <div class="modal-body">
+
                 <form class="form-horizontal loginFrm">
                   <div class="control-group">								
                     <input type="text" id="inputEmail" placeholder="Email">
                   </div>
                   <div class="control-group">
-                    <input type="password" id="inputPassword" placeholder="Password">
+                    <input type="password" id="inputPassword" placeholder="Heslo">
                   </div>
                   <div class="control-group">
                     <label class="checkbox">
-                    <input type="checkbox"> Remember me
+                    <input type="checkbox"> Zapamätaj si ma!
                     </label>
                   </div>
                 </form>		
-                <button type="submit" class="btn btn-success">Sign in</button>
+                <button type="submit" class="btn btn-success">Prihlásiť sa</button>
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                          
+                <p>Ešte nie si registrovaný? <a href="login.html">Zaregistruj sa!</a></p>
+                
+                
               </div>
+
+
+              
         </div>
         </li>
         </ul>

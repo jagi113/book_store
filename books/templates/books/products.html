@@ -4,25 +4,25 @@
 {% block content %}
 <div class="span9">
     <ul class="breadcrumb">
-		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
-		<li class="active">Books</li>
+		<li><a href="index.html">Domov</a> <span class="divider">/</span></li>
+		<li class="active">Knihy</li>
     </ul>
-	<h3> Books <small class="pull-right"> <!--40 products are available--> </small></h3>	
+	<h3> Knihy <small class="pull-right"> <!--40 products are available--> </small></h3>	
 	<hr class="soft"/>
 	<p>
-		Providing the best books for you!
+		Najlepšie knihy pre Vás!
 	</p>
 	<hr class="soft"/>
 	<form class="form-horizontal span6" method="get" action="{% url 'books:book_list' %}?search_query={{request.path}}">
 		<div class="control-group">
-			<label class="control-label alignL">Sort By </label>
+			<label class="control-label alignL">Zoradiť podľa </label>
 			<select name="order" onchange="this.form.submit()">
-				<option value="title" {% if request.GET.order == "title" %}selected{% endif %}>Book Title A - Z</option>
-				<option value="-title" {% if request.GET.order == "-title" %}selected{% endif %}>Book Title Z - A</option>
-				<option value="author" {% if request.GET.order == "author" %}selected{% endif %}>Book Author A - Z</option>
-				<option value="-author" {% if request.GET.order == "-author" %}selected{% endif %}>Book Author Z - A</option>
-				<option value="price" {% if request.GET.order == "price" %}selected{% endif %}>Price Lowest first</option>
-				<option value="-price" {% if request.GET.order == "-price" %}selected{% endif %}>Price Highest first</option>
+				<option value="title" {% if request.GET.order == "title" %}selected{% endif %}>Názvu knihy A - Z</option>
+				<option value="-title" {% if request.GET.order == "-title" %}selected{% endif %}>Názvu knihy Z - A</option>
+				<option value="author" {% if request.GET.order == "author" %}selected{% endif %}>Mena autora A - Z</option>
+				<option value="-author" {% if request.GET.order == "-author" %}selected{% endif %}>Mena autora Z - A</option>
+				<option value="price" {% if request.GET.order == "price" %}selected{% endif %}>Najnižšej ceny</option>
+				<option value="-price" {% if request.GET.order == "-price" %}selected{% endif %}>Najvyššej ceny</option>
 			</select>
 			<input type="hidden" name="search_query" value="{{ request.GET.search_query }}">
 		</div>
@@ -44,13 +44,14 @@
 					<img src="{{book.image}}" alt="{{book.image}}" style="width:200px; height:300px; object-fit:contain"/>
 				</div>
 				<div class="span4">
-					<h3>{{book.status}}</h3>				
+					<h5>{{book.status}}</h5>				
 					<hr class="soft"/>
-					<h5>{{book.title|slice:"30"}}{% if book.title|length > 30 %}...{%endif%}</h5>
+					<h4>{{book.title|slice:"30"}}{% if book.title|length > 30 %}...{%endif%}</h4>
+					<h5>{{book.author}}</h5>
 					<p>
 						{{book.description|slice:"130"}}...
 					</p>
-					<a class="btn btn-small pull-right" href="{% url "books:book_detail" book.id %}">View Details</a>
+					<a class="btn btn-small pull-right" href="{% url "books:book_detail" book.id %}">Viac informácií</a>
 					<br class="clr"/>
 				</div>
 				<div class="span3 alignR">
@@ -61,7 +62,7 @@
 					<input type="checkbox">  Adds product to compair
 				</label><br/>
 				-->
-				<a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+				<a href="product_details.html" class="btn btn-large btn-primary"> Pridať do <i class=" icon-shopping-cart"></i></a>
 				<a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
 				
 					</form>
@@ -81,10 +82,11 @@
 					<a href="{% url "books:book_detail" book.id %}"><img src="{{book.image}}" alt="{{book.image}}"style="width:200px; height:300px; object-fit:contain"/></a>
 					<div class="caption">
 					<h5>{{book.title|slice:"30"}}{% if book.title|length > 30 %}...{%endif%}</h5>
+					<h6 style="text-align:center">{{book.author}}</h6>
 					<p> 
 						{{book.description|slice:"130"}}... 
 					</p>
-					<h4 style="text-align:center"><a class="btn" href="{% url "books:book_detail" book.id %}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{book.price}} €</a></h4>
+					<h4 style="text-align:center"><a class="btn" href="{% url "books:book_detail" book.id %}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Pridať do <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{book.price}} €</a></h4>
 					</div>
 				</div>
 				</li>

@@ -4,9 +4,9 @@
 {% block content %}
 <div class="span9">
     <ul class="breadcrumb">
-    	<li><a href="index.html">Home</a> <span class="divider">/</span></li>
-    	<li><a href="{% url "books:book_list"%}">Books</a> <span class="divider">/</span></li>
-    	<li class="active">Book Details</li>
+    	<li><a href="index.html">Domov</a> <span class="divider">/</span></li>
+    	<li><a href="{% url "books:book_list"%}">Knihy</a> <span class="divider">/</span></li>
+    	<li class="active">Popis</li>
     </ul>	
 	<div class="row">	  
 		<div id="gallery" class="span3">
@@ -56,7 +56,7 @@
 						<label class="control-label"><span>{{book.price}} €</span></label>
 						<div class="controls">
 							<input type="number" class="span1" placeholder="Qty."/>
-					  		<button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
+					  		<button type="submit" class="btn btn-large btn-primary pull-right"> Pridať do košíka <i class=" icon-shopping-cart"></i></button>
 						</div>
 				  	</div>
 				</form>
@@ -68,7 +68,7 @@
 				<p style="text-align:justify;">
 					{{book.description|linebreaksbr}}
 				</p>
-				<a class="btn btn-small pull-right" href="{{book.url}}">More Details</a>
+				<a class="btn btn-small pull-right" href="{{book.url}}">Viac informácií</a>
 				<br class="clr"/>
 			<a href="#" name="detail"></a>
 			<hr class="soft"/>
@@ -76,17 +76,17 @@
 			
 			<div class="span9">
 				<ul id="productDetail" class="nav nav-tabs">
-					<li class="active"><a href="#home" data-toggle="tab">Book Details</a></li>
-					<li><a href="#profile" data-toggle="tab">Related Books</a></li>
+					<li class="active"><a href="#home" data-toggle="tab">Detailný popis</a></li>
+					<li><a href="#profile" data-toggle="tab">Podobné knihy</a></li>
 				</ul>
 				<div id="myTabContent" class="tab-content">
 					<div class="tab-pane fade active in" id="home">
-						<h4>Book Information</h4>
+						<h4>Informácie o knihe</h4>
 						<table class="table table-bordered">
 							<tbody>
-								<tr class="techSpecRow"><th colspan="2">Book Details</th></tr>
-								<tr class="techSpecRow"><td class="techSpecTD1">Title: </td><td class="techSpecTD2">{{book.title}}</td></tr>
-								<tr class="techSpecRow"><td class="techSpecTD1">Author:</td><td class="techSpecTD2">{{book.author}}</td></tr>
+								<tr class="techSpecRow"><th colspan="2">Detailný popis</th></tr>
+								<tr class="techSpecRow"><td class="techSpecTD1">Názov: </td><td class="techSpecTD2">{{book.title}}</td></tr>
+								<tr class="techSpecRow"><td class="techSpecTD1">Autor:</td><td class="techSpecTD2">{{book.author}}</td></tr>
 							</tbody>
 						</table>
 				<!-- 
@@ -149,7 +149,7 @@
 										<input type="checkbox">  Adds product to compair
 									</label><br/>
 									<div class="btn-group">
-									<a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+									<a href="product_details.html" class="btn btn-large btn-primary"> Pridaj do <i class=" icon-shopping-cart"></i></a>
 									<a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
 									</div>
 								</form>
