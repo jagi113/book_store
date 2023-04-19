@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-{% load custom_filters %}
 
 {% block content %}
 <div class="span9">
@@ -14,15 +13,18 @@
 		Providing the best books for you!
 	</p>
 	<hr class="soft"/>
-	<form class="form-horizontal span6">
+	<form class="form-horizontal span6" method="get" action="{% url 'books:book_list' %}?search_query={{request.path}}">
 		<div class="control-group">
-		  <label class="control-label alignL">Sort By </label>
-			<select>
-              <option>Priduct name A - Z</option>
-              <option>Priduct name Z - A</option>
-              <option>Priduct Stoke</option>
-              <option>Price Lowest first</option>
-            </select>
+			<label class="control-label alignL">Sort By </label>
+			<select name="order" onchange="this.form.submit()">
+				<option value="title" {% if request.GET.order == "title" %}selected{% endif %}>Book Title A - Z</option>
+				<option value="-title" {% if request.GET.order == "-title" %}selected{% endif %}>Book Title Z - A</option>
+				<option value="author" {% if request.GET.order == "author" %}selected{% endif %}>Book Author A - Z</option>
+				<option value="-author" {% if request.GET.order == "-author" %}selected{% endif %}>Book Author Z - A</option>
+				<option value="price" {% if request.GET.order == "price" %}selected{% endif %}>Price Lowest first</option>
+				<option value="-price" {% if request.GET.order == "-price" %}selected{% endif %}>Price Highest first</option>
+			</select>
+			<input type="hidden" name="search_query" value="{{ request.GET.search_query }}">
 		</div>
 	</form>
 	  

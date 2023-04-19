@@ -1,3 +1,4 @@
+{% load static %}
 <div id="logoArea" class="navbar">
     <a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
         <span class="icon-bar"></span>
@@ -5,9 +6,10 @@
         <span class="icon-bar"></span>
     </a>
       <div class="navbar-inner">
-        <a class="brand" href="index.html"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
-            <form class="form-inline navbar-search" method="post" action="products.html" >
-            <input id="srchFld" class="srchTxt" type="text" />
+        <a class="brand" href="{% url 'books:index' %}"><img src="{% static 'themes/images/logo.png'%}" alt="Bootsshop"/></a>
+            <form class="form-inline navbar-search" method="get" action="{% url 'books:book_list' %}" >
+              <input id="srchFld" class="srchTxt" type="text" name="search_query" value="{{search_query}}"/>
+              <!--
               <select class="srchTxt">
                 <option>All</option>
                 <option>CLOTHES </option>
@@ -15,13 +17,14 @@
                 <option>HEALTH & BEAUTY </option>
                 <option>SPORTS & LEISURE </option>
                 <option>BOOKS & ENTERTAINMENTS </option>
-            </select> 
-              <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
+              </select> 
+              -->
+              <button type="submit" id="submitButton" class="btn btn-primary">Search</button>
         </form>
         <ul id="topMenu" class="nav pull-right">
-         <li class=""><a href="special_offer.html">Specials Offer</a></li>
-         <li class=""><a href="normal.html">Delivery</a></li>
-         <li class=""><a href="contact.html">Contact</a></li>
+         <li class=""><a href="">Specials Offer</a></li>
+         <li class=""><a href="">Delivery</a></li>
+         <li class=""><a href="">Contact</a></li>
          <li class="">
          <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
         <div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >

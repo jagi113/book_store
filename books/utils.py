@@ -1,6 +1,8 @@
 from django.db.models import Q
-from books.models import Book
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from random import sample
+
+from books.models import Book
 
 
 def paginateBooks(request, queryset, results):
@@ -42,3 +44,11 @@ def searchBooks(request):
         | Q(author__icontains=search_query)
     )
     return books, search_query
+
+
+def getRandomBooks(numOfBooks):
+    """Return list of random books in length of numOfBooks"""
+    book_pks = list(Book.objects.values_list("pk", flat=True))
+    random_pks = sample(book_pks, min(numOfBooks, len(book_pks)))
+    random_books = Book.objects.filter(pk__in=random_pks)
+    return list(random_books)

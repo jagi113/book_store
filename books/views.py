@@ -1,9 +1,11 @@
 from django.shortcuts import render
-from books.models import Book
 from django.views.generic import ListView, DetailView
+import operator
+
+from books.models import Book
+from books.utils import searchBooks, paginateBooks, getRandomBooks
 
 # Create your views here.
-from django.http import HttpResponse
 
 
 class Index(ListView):
@@ -13,6 +15,7 @@ class Index(ListView):
 
     def get_queryset(self):
         queryset = {
+            "carousel_content": getRandomBooks(4),
             "latest_books": Book.objects.order_by("-updated_at")[:12],
             "best_deals": Book.objects.order_by("price")[:12],
         }
@@ -25,22 +28,19 @@ class Book_detail(DetailView):
     context_object_name = "book"
 
 
-from django.shortcuts import render, redirect
-
-
-from django.contrib import messages
-from books.utils import searchBooks, paginateBooks
-from django.contrib import messages
-from django.db import IntegrityError
-
-
 def list_books(request):
     books, search_query = searchBooks(request)
 
-    custom_range, books = paginateBooks(request, books, 12)
+    order = "title"
+    if request.GET.get("order"):
+        order = request.GET.get("order")
+
+    sorted_books = books.order_by(order)
+
+    custom_range, book_list = paginateBooks(request, sorted_books, 12)
 
     context = {
-        "books": books,
+        "books": book_list,
         "search_query": search_query,
         "custom_range": custom_range,
     }
