@@ -1,20 +1,32 @@
 {% load static %}
+
 <div id="carouselBlk">
+
 	<div id="myCarousel" class="carousel slide">
+
 		<div class="carousel-inner">
+
 			{% for book in books.carousel_content %}
-			<div class="item">
-			<div class="container">
-				<a href="register.html"><img style="width:100%" src="{{book.image}}" alt="special offers"/></a>
-				<div class="carousel-caption">
-					<h4>{{book.title|slice:"30"}}{% if book.title|length > 30 %}...{%endif%}</h4>
-					<p>{{book.description|slice:"130"}}...</p>
-					</div>
+
+			<div class="item {% if forloop.first %} active {% endif %}" >
+				<div class="container" style="display:flex;width: 100%;max-width: 1200px; margin: 0 auto;" >
+						<div style="flex:30%;padding:10px;height:300px;">
+							<img src="{{ book.image }}" style="margin: auto; max-height: 100%; max-width: 100%;">
+						</div>
+						<div style="flex:70%;padding:10px;height:300px; justify-content: center;">
+							<h1 style="font-size: 36px; margin-bottom: 10px;">{% if book.title|length > 30 %}{{ book.title|truncatechars:130|wordwrap:70 }}...{% else %}{{ book.title }}{% endif %}</h1>
+							<h4 style="font-size: 18px; margin-bottom: 10px;">{{ book.author }}</h4>
+							<p style="font-size: 16px;">{% if book.description|length > 130 %}{{ book.description|truncatechars:130|wordwrap:70 }}...{% else %}{{ book.description }}{% endif %}</p>
+							<a href="" class="btn btn-primary" style="margin-bottom: 10px;object-align:center;font-size: 18px" >Zaregistruj sa a čítaj!</a>
+						  </div>
+				</div>
 			</div>
-			</div>
+
 		  	{% endfor %}
 		</div>
 		<a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
 		<a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
 	</div> 
 </div>
+
+

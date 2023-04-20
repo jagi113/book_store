@@ -15,7 +15,7 @@
                     <!-- section of 4 products rotating -->    
                       
                     {% for group in books.best_deals|batch:"4" %}
-                    <div class="item">
+                    <div class="item {% if forloop.first %} active {% endif %}">
                         <ul class="thumbnails">  
 
                             {% for book in group %}
@@ -66,3 +66,7 @@
 </div>
 
 {% endblock content %}
+
+{% block carousel %}
+{% include "includes/carousel.html" %}
+{% endblock carousel%}
