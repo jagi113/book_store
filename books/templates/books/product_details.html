@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load static %}
 {% load custom_filters %}
 
 {% block content %}
 <div class="span9">
     <ul class="breadcrumb">
-    	<li><a href="index.html">Domov</a> <span class="divider">/</span></li>
+    	<li><a href="{% url "books:index"%}">Domov</a> <span class="divider">/</span></li>
     	<li><a href="{% url "books:book_list"%}">Knihy</a> <span class="divider">/</span></li>
     	<li class="active">Popis</li>
     </ul>	
@@ -51,15 +52,22 @@
 		<h3>{{book.title}}</h3>
 			<small>{{book.author}}</small>
 			<hr class="soft"/>
-				<form class="form-horizontal qtyFrm">
+				<div class="form-horizontal qtyFrm">
 				  	<div class="control-group">
 						<label class="control-label"><span>{{book.price}} €</span></label>
 						<div class="controls">
-							<input type="number" class="span1" placeholder="Qty."/>
+							<form action="{% url 'books:add_to_cart' %}" method="POST">
+								
+							
+								{% csrf_token %}
+								<input type="number" class="span1" placeholder="Qty."/ name="quantity">
+								<input type="hidden" name="buy_id" value="{{ book.id }}">
+							
 					  		<button type="submit" class="btn btn-large btn-primary pull-right"> Pridať do košíka <i class=" icon-shopping-cart"></i></button>
+							</form>
 						</div>
 				  	</div>
-				</form>
+				</div>
 				
 			<hr class="soft"/>
 				<h4>{{book.status}}</h4>
@@ -129,7 +137,7 @@
 							<!-- related product section-->
 							<div class="row">	  
 								<div class="span2">
-									<img src="themes/images/products/4.jpg" alt=""/>
+									<img src="{% static 'themes/images/products/4.jpg'%}" alt=""/>
 								</div>
 								<div class="span4">
 									<h3>New | Available</h3>				
@@ -161,7 +169,7 @@
 
 						<div class="row">	  
 								<div class="span2">
-									<img src="themes/images/products/5.jpg" alt=""/>
+									<img src="{% static 'themes/images/products/5.jpg'%}" alt=""/>
 								</div>
 								<div class="span4">
 									<h3>New | Available</h3>				
@@ -190,7 +198,7 @@
 						<hr class="soft"/>
 						<div class="row">	  
 								<div class="span2">
-								<img src="themes/images/products/6.jpg" alt=""/>
+								<img src="{% static 'themes/images/products/6.jpg'%}" alt=""/>
 								</div>
 								<div class="span4">
 									<h3>New | Available</h3>				
@@ -219,7 +227,7 @@
 						<hr class="soft"/>
 						<div class="row">	  
 								<div class="span2">
-								<img src="themes/images/products/7.jpg" alt=""/>
+								<img src="{% static 'themes/images/products/7.jpg'%}" alt=""/>
 								</div>
 								<div class="span4">
 									<h3>New | Available</h3>				
@@ -249,7 +257,7 @@
 						<hr class="soft"/>
 						<div class="row">	  
 								<div class="span2">
-								<img src="themes/images/products/8.jpg" alt=""/>
+								<img src="{% static 'themes/images/products/8.jpg'%}" alt=""/>
 								</div>
 								<div class="span4">
 									<h3>New | Available</h3>				
@@ -278,7 +286,7 @@
 						<hr class="soft"/>
 							<div class="row">	  
 								<div class="span2">
-								<img src="themes/images/products/9.jpg" alt=""/>
+								<img src="{% static 'themes/images/products/9.jpg'%}" alt=""/>
 								</div>
 								<div class="span4">
 									<h3>New | Available</h3>				
@@ -311,7 +319,7 @@
 				<ul class="thumbnails">
 					<li class="span3">
 					  <div class="thumbnail">
-						<a href="product_details.html"><img src="themes/images/products/10.jpg" alt=""/></a>
+						<a href="product_details.html"><img src="{% static 'themes/images/products/10.jpg'%}" alt=""/></a>
 						<div class="caption">
 						  <h5>Manicure &amp; Pedicure</h5>
 						  <p> 
@@ -323,7 +331,7 @@
 					</li>
 					<li class="span3">
 					  <div class="thumbnail">
-						<a href="product_details.html"><img src="themes/images/products/11.jpg" alt=""/></a>
+						<a href="product_details.html"><img src="{% static 'themes/images/products/11.jpg'%}" alt=""/></a>
 						<div class="caption">
 						  <h5>Manicure &amp; Pedicure</h5>
 						  <p> 
@@ -335,7 +343,7 @@
 					</li>
 					<li class="span3">
 					  <div class="thumbnail">
-						<a href="product_details.html"><img src="themes/images/products/12.jpg" alt=""/></a>
+						<a href="product_details.html"><img src="{% static 'themes/images/products/12.jpg'%}" alt=""/></a>
 						<div class="caption">
 						  <h5>Manicure &amp; Pedicure</h5>
 						  <p> 
@@ -347,7 +355,7 @@
 					</li>
 					<li class="span3">
 					  <div class="thumbnail">
-						<a href="product_details.html"><img src="themes/images/products/13.jpg" alt=""/></a>
+						<a href="product_details.html"><img src="{% static 'themes/images/products/13.jpg'%}" alt=""/></a>
 						<div class="caption">
 						  <h5>Manicure &amp; Pedicure</h5>
 						  <p> 
@@ -359,7 +367,7 @@
 					</li>
 					<li class="span3">
 					  <div class="thumbnail">
-						<a href="product_details.html"><img src="themes/images/products/1.jpg" alt=""/></a>
+						<a href="product_details.html"><img src="{% static 'themes/images/products/1.jpg'%}" alt=""/></a>
 						<div class="caption">
 						  <h5>Manicure &amp; Pedicure</h5>
 						  <p> 
@@ -371,7 +379,7 @@
 					</li>
 					<li class="span3">
 					  <div class="thumbnail">
-						<a href="product_details.html"><img src="themes/images/products/2.jpg" alt=""/></a>
+						<a href="product_details.html"><img src="{% static 'themes/images/products/2.jpg'%}" alt=""/></a>
 						<div class="caption">
 						  <h5>Manicure &amp; Pedicure</h5>
 						  <p> 

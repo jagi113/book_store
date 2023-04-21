@@ -55,17 +55,20 @@
 					<br class="clr"/>
 				</div>
 				<div class="span3 alignR">
-				<form class="form-horizontal qtyFrm">
-				<h3>{{book.price}} €</h3>
-				<!--
-				<label class="checkbox">
-					<input type="checkbox">  Adds product to compair
-				</label><br/>
-				-->
-				<a href="product_details.html" class="btn btn-large btn-primary"> Pridať do <i class=" icon-shopping-cart"></i></a>
-				<a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
-				
+					<div class="form-horizontal qtyFrm">
+					<h3>{{book.price}} €</h3>
+					<!--
+					<label class="checkbox">
+						<input type="checkbox">  Adds product to compair
+					</label><br/>
+					-->
+
+					<form action="{% url "books:add_to_cart" %}" method="POST">
+						{% csrf_token %}
+						<input type="hidden" name="buy_id" value="{{ book.id }}">
+						<button type="submit" class="btn btn-large btn-primary"> Pridať do <i class=" icon-shopping-cart"></i></button>
 					</form>
+					</div>
 				</div>
 			</div>
 			<hr class="soft"/>
