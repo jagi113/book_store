@@ -1,7 +1,7 @@
 # BookStore
 
 This project is a simple bookstore website in django framework.   
-It presents books, gives detail, enables to put a book into a cart for purchasing. Purchasing is not available.
+It presents books, gives detail, enables to put a book into a cart for purchasing. Creating a user's account and purchasing is not available.
 Available features is search for a book (search of a given keyword is done in title, author and description category).
 Website give options of additional sorting of the results.
 Categories are not accessible due to limited data on books.
