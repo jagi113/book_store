@@ -55,25 +55,56 @@
 			</tr>
         </thead>
 			<tbody>
-				{%for book in cart %}
-				<tr>
+				{% for item in cart %}
+				{% with item.book as book %}
+				<tr id="{{book.id}}-form-section">
 					<td> <img width="60" src="{{book.image}}" alt="{{book.image}}"/></td>
 					<td>{{book.title}}<br/>{{book.author}}</td>
 					<td>
-						<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div>
+						<div class="input-append" style="display:flex;flex-direction:row;justify-content:space-between;"">
+						<form action="{% url 'cart:add_to_cart' book.id %}" method="post">
+							{% csrf_token %}
+							<input class="span1 quantity_input" style="max-width:34px" value="{{item.quantity}}" id="appendedInputButtons" size="16" type="text" name="quantity" />
+							<input type="hidden" name="override" value="True"/>
+							<input type="hidden" name="current_url" value="{{ request.path }}#{{book.id}}-form-section">
+						</form>	
+						<form action="{% url 'cart:add_to_cart' book.id %}" method="post">
+							{% csrf_token %}
+							<input type="hidden" style="max-width:34px" value="-1" id="appendedInputButtons" size="16" type="text" name="quantity" />
+							<input type="hidden" name="override" value="False"/>
+							<input type="hidden" name="current_url" value="{{ request.path }}#{{book.id}}-form-section">
+							<button class="btn" type="submit"><i class="icon-minus"></i></button>
+						</form>	
+						<form action="{% url 'cart:add_to_cart' book.id %}" method="post">
+							{% csrf_token %}
+							<input type="hidden" style="max-width:34px" value="1" id="appendedInputButtons" size="16" type="text" name="quantity" />
+							<input type="hidden" name="override" value="False"/>
+							<input type="hidden" name="current_url" value="{{ request.path }}#{{book.id}}-form-section">
+							<button class="btn" type="submit" value="1"><i class="icon-plus"></i></button>
+						</form>					
+						
+						<form action="{% url 'cart:remove_from_cart' book.id %}" method="post">
+						{% csrf_token %}
+						<input type="hidden" name="current_url" value="{{ request.path }}#{{book.id}}-form-section">
+						<button class="btn btn-danger" type="submit"><i class="icon-remove icon-white"></i></button>
+						</form>
+						</div>
 					</td>
-					{% with book.price|div:1.2 as cleared_price %}
+					{% with book.price|mul:item.quantity|div:1.2 as cleared_price %}
 					<td>{{cleared_price|floatformat:2}} €</td>
 					<td>0 €</td>
-					<td>{{book.price|sub:cleared_price|floatformat:2}} €</td>
-					<td>{{book.price}} €</td>
+					<td>{{book.price|mul:item.quantity|sub:cleared_price|floatformat:2}} €</td>
+					<td>{{book.price|mul:item.quantity|floatformat:2}} €</td>
+						
 					{%endwith%}
 				</tr>
+				{%endwith%}
+				
 				{%endfor%}
 			
 			<tr>
 				<td colspan="6" style="text-align:right">Total Price:	</td>
-				<td>{{no_tax_price}} €</td>
+				<td>{{cart.notax_price}} €</td>
 			</tr>
 			<tr>
 				<td colspan="6" style="text-align:right">Total Discount:	</td>
@@ -81,11 +112,11 @@
 			</tr>
 			<tr>
 				<td colspan="6" style="text-align:right">Total Tax:	</td>
-				<td>{{tax}} €</td>
+				<td>{{cart.tax}} €</td>
 			</tr>
 			<tr>
-				<td colspan="6" style="text-align:right"><strong>TOTAL ({{no_tax_price}} € - $0 € + {{tax}} €) =</strong></td>
-				<td class="label label-important" style="display:block"> <strong>{{price}} €</strong></td>
+				<td colspan="6" style="text-align:right"><strong>TOTAL ({{cart.notax_price}} € - $0 € + {{cart.tax}} €) =</strong></td>
+				<td class="label label-important" style="display:block"> <strong>{{cart.total_price}} €</strong></td>
 			</tr>
 		</tbody>
 	</table>
@@ -142,5 +173,6 @@
 	<a href="login.html" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
 	
 </div>
+
 
 {% endblock %}

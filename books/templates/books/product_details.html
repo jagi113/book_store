@@ -9,7 +9,7 @@
     	<li><a href="{% url "books:book_list"%}">Knihy</a> <span class="divider">/</span></li>
     	<li class="active">Popis</li>
     </ul>	
-	<div class="row">	  
+	<div class="row" id="{{book.id}}-form-section">	  
 		<div id="gallery" class="span3">
             <a href="{{book.image}}" title="{{book.title}}">
 				<img src="{{book.image}}" style="width:100%" alt="{{book.image}}"/>
@@ -56,12 +56,14 @@
 				  	<div class="control-group">
 						<label class="control-label"><span>{{book.price}} €</span></label>
 						<div class="controls">
-							<form action="{% url 'books:add_to_cart' %}" method="POST">
+							<form action="{% url 'cart:add_to_cart' book.id %}" method="POST">
 								
 							
 								{% csrf_token %}
-								<input type="number" class="span1" placeholder="Qty."/ name="quantity">
-								<input type="hidden" name="buy_id" value="{{ book.id }}">
+								<input type="number" class="span1" placeholder="počet ks" name="quantity">
+								<input type="hidden" name="override" value="True" >
+								<input type="hidden" name="current_url" value="{{ request.path }}#{{book.id}}-form-section">
+								<!--<input type="hidden" name="buy_id" value="{{ book.id }}">-->
 							
 					  		<button type="submit" class="btn btn-large btn-primary pull-right"> Pridať do košíka <i class=" icon-shopping-cart"></i></button>
 							</form>

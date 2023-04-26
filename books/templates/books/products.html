@@ -39,7 +39,7 @@
 
 			<!-- Book item section -->
 			{% for book in books %}
-			<div class="row">	  
+			<div class="row" id="{{book.id}}-form-section-rows">	  
 				<div class="span2">
 					<img src="{{book.image}}" alt="{{book.image}}" style="width:200px; height:300px; object-fit:contain"/>
 				</div>
@@ -63,11 +63,15 @@
 					</label><br/>
 					-->
 
-					<form action="{% url "books:add_to_cart" %}" method="POST">
+					<form action="{% url "cart:add_to_cart" book.id %}" method="POST">
 						{% csrf_token %}
-						<input type="hidden" name="buy_id" value="{{ book.id }}">
+						<!--<input type="hidden" name="buy_id" value="{{ book.id }}">-->
+						<input type="number" style="visibility:hidden;" class="span1" placeholder="počet ks"/ name="quantity" value="1" >
+						<input type="hidden" name="override" value="False" >
+						<input type="hidden" name="current_url" value="{{request.path}}#{{book.id}}-form-section-rows">
 						<button type="submit" class="btn btn-large btn-primary"> Pridať do <i class=" icon-shopping-cart"></i></button>
 					</form>
+
 					</div>
 				</div>
 			</div>
@@ -80,7 +84,7 @@
 			<ul class="thumbnails">
 
 				{% for book in books %}
-				<li class="span3">
+				<li class="span3" id="{{book.id}}-form-section-grid">
 				<div class="thumbnail">
 					<a href="{% url "books:book_detail" book.id %}"><img src="{{book.image}}" alt="{{book.image}}"style="width:200px; height:300px; object-fit:contain"/></a>
 					<div class="caption">
@@ -89,8 +93,32 @@
 					<p> 
 						{{book.description|slice:"130"}}... 
 					</p>
-					<h4 style="text-align:center"><a class="btn" href="{% url "books:book_detail" book.id %}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Pridať do <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{book.price}} €</a></h4>
-					</div>
+					<h4>
+						<div style="display:flex;flex-direction:row;justify-content:space-between;">
+							<div>
+								<a class="btn" href="{% url "books:book_detail" book.id %}"> 
+									<i class="icon-zoom-in"></i>
+								</a> 
+							</div>
+							<div>
+							<form action="{% url "cart:add_to_cart" book.id %}" method="POST">
+								{% csrf_token %}
+								<!--<input type="hidden" name="buy_id" value="{{ book.id }}">-->
+								<input type="hidden" name="quantity" value="1" >
+								<input type="hidden" name="override" value="False" >
+								<input type="hidden" name="current_url" value="{{request.path}}#{{book.id}}-form-section-grid">
+								<button type="submit" class="btn"> Pridať do <i class=" icon-shopping-cart"></i></button>
+							</form>
+							</div>
+							<div>
+							<a class="btn  btn-primary" href="{% url "books:book_detail" book.id %}"> 
+								{{book.price}} €
+							</a>
+							</div>
+						</div>
+
+					</h4>
+				</div>
 				</div>
 				</li>
 				{% endfor %}
